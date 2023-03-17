@@ -102,6 +102,7 @@ function createRipple(event: MouseEvent) {
 div.ripple {
   position: absolute;
   background: white;
+  box-shadow: 0px 5px 4px rgba(0, 0, 0, 0.190314);
   border-radius: 50%;
 }
 
@@ -109,7 +110,7 @@ div.ripple__wave {
   position: absolute;
   border-radius: 50%;
   animation: rippleWave v-bind(waveAnimationDurationCss);
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 @keyframes rippleWave {
@@ -117,7 +118,7 @@ div.ripple__wave {
     transform: scale(0);
   }
   to {
-    transform: scale(4.5);
+    transform: scale(4.15);
   }
 }
 </style>

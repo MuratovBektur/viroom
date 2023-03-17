@@ -51,6 +51,7 @@
 </template>
 
 <script setup lang="ts">
+import { debounce } from "lodash";
 import { onBeforeUnmount, onMounted, ref } from "vue";
 
 import Card from "./Card.vue";
@@ -124,24 +125,28 @@ onBeforeUnmount(() => {
   cardListElem.removeEventListener("scroll", onScrollCardList);
 });
 
-function onScrollCardList() {
-  showNavigationBtnNext.value = !isLastCardVisible();
+const onScrollCardList = debounce(() => {
   showNavigationBtnPrev.value = !isFirstCardVisible();
-}
+  showNavigationBtnNext.value = !isLastCardVisible();
+}, 200);
 
 function isFirstCardVisible(): boolean {
   const cardListElem = cardListRef.value;
   if (!cardListElem) return false;
-  const firstElem = cardListElem.children[0];
+
+  const firstElem = cardListElem.firstElementChild;
   if (!firstElem) return false;
-  return isScrolledIntoView(firstElem as HTMLElement);
+
+  return isScrolledIntoView(firstElem);
 }
 function isLastCardVisible(): boolean {
   const cardListElem = cardListRef.value;
   if (!cardListElem) return false;
-  const lastElem = cardListElem.children[cardListElem.children.length - 1];
+
+  const lastElem = cardListElem.lastElementChild;
   if (!lastElem) return false;
-  return isScrolledIntoView(lastElem as HTMLElement);
+
+  return isScrolledIntoView(lastElem);
 }
 
 function scrollToRight() {
@@ -153,7 +158,7 @@ function scrollToLeft() {
   cardListRef.value.scrollLeft -= cardWidth;
 }
 
-function isScrolledIntoView(el: HTMLElement) {
+function isScrolledIntoView(el: Element) {
   const rect = el.getBoundingClientRect();
   const elemLeft = rect.left;
   const elemRight = rect.right;
@@ -161,7 +166,7 @@ function isScrolledIntoView(el: HTMLElement) {
   // Only completely visible elements return true:
   const isVisible = elemLeft >= 0 && elemRight <= window.innerWidth;
   // Partially visible elements return true:
-  //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
+
   return isVisible;
 }
 </script>

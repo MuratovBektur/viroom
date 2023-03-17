@@ -1,6 +1,6 @@
 git pull;
 
-export COMPOSE_PROJECT_NAME=viroom_prod
+export COMPOSE_PROJECT_NAME=viroom_dev
 
 docker compose -f docker-compose.dev.yml down -v;
 docker compose -f docker-compose.dev.yml up -d --build;
