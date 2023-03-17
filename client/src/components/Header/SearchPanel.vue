@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect } from "vue";
+import { ref } from "vue";
 import SearchCategories from "./SearchCategories.vue";
 
 const showSearchCategories = ref<boolean>(false);

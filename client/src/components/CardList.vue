@@ -24,16 +24,16 @@
         @click="scrollToLeft"
         class="hidden rotate-180 z-10 xl:flex absolute left-8 top-[11rem] bg-white h-[5rem] w-[5rem] items-center justify-center rounded-full shadow-[0_-12px_14px_rgba(0,0,0,0.137402)]"
       >
-        <img class="" src="@/assets/navigation-next.svg" />
+        <img src="@/assets/navigation-next.svg" />
       </button>
       <div
         ref="cardListRef"
         v-if="cardList?.length"
-        class="scroll-smooth mt-5 flex overflow-auto space-x-8 mb-20 no-scrollbar"
+        class="scroll-smooth mt-[-0.25rem] flex overflow-auto space-x-8 pb-20 no-scrollbar"
       >
         <Card
           class="flex-nowrap shrink-0"
-          @click="toggleFavorite(card.id)"
+          @onClickLike="toggleFavorite"
           v-for="card of cardList"
           :card="card"
           :key="card.id"
@@ -60,7 +60,7 @@ const cardList = ref<Array<ICard>>([
   {
     id: 1,
     isFavorite: false,
-    title: "Проект кухни в популярном",
+    title: "Проект кухни в популярном скандинавском современном стиле",
     author: "Камила Магомедовна",
     imgUrl: "https://i.ibb.co/BHpFxnG/image.png",
     locationImgUrl: "https://i.ibb.co/G7NkwvN/image.png",
